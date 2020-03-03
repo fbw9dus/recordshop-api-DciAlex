@@ -7,10 +7,10 @@ const logger = require('morgan');
 /** ROUTERS */
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const trackRouter = require('./routes/records');
 
 /** INIT */
 const app = express();
-
 /** LOGGING */
 app.use(logger('dev'));
 
@@ -25,6 +25,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 /** ROUTES */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/track', trackRouter);
 
+// app.get(`/track`,(req, res) =>{
+//     res.json(track.list())
+// })
+// app.post(`/track`,(req, res)=>{
+//     var data = req.body
+//     // console.log(data)
+//     track.create(data)
+//     res.json(track.list())
+// })
 /** EXPORT PATH */
 module.exports = app;
