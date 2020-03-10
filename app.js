@@ -13,6 +13,9 @@ const recordsRouter = require('./routes/records');
 const ordersRouter = require('./routes/orders');
 const { setCors } = require("./middleware/security");
 
+
+const mongoose = require('mongoose')
+const RecordsModel = require('./models/model-songs');
 /** INIT */
 const app = express();
 
@@ -21,15 +24,35 @@ app.use(logger('dev'));
 
 
 /** SETTING UP LOWDB */
-const adapter = new FileSync('data/db.json');
-const db = low(adapter);
-db.defaults({
-    records: [],
-    users: [],
-    orders: []
-}).write();
+// const adapter = new FileSync('data/db.json');
+// const db = low(adapter);
+// db.defaults({
+//     records: [],
+//     users: [],
+//     orders: []
+// }).write();
 
-
+(async function(){
+    await mongoose.connect('mongodb://localhost:27017/test', {
+        useNewUrlparser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true
+    })
+    try {
+        const allrecordss = await RecordsModel.find()
+        allrecordss.forEach(records =>{
+              console.log(
+                  ` Title: ${records.title},
+                    Artist: ${records.artist},
+                    Year: ${records.year},
+                    Price: ${records.price}`)
+            })
+            console.log(allrecordss.length)
+        } catch (error) {
+            console.log(error)
+        }
+    
+})()
 /** REQUEST PARSERS */
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
