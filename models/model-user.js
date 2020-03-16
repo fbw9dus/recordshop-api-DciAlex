@@ -12,8 +12,16 @@ const usersSchema = new mongoose.Schema({
     pass   :{ 
         type   :String,
         require: true
-    }  
+    },
+    firstName:{
+        type: String,
+        require: true
+    },
+    lastName :{
+        type: String,
+        require:true
+    }
 })
 
-const UsersModel = mongoose.model('User', UsersSchema)
+const UsersModel = mongoose.model('User', usersSchema)
 module.exports = UsersModel

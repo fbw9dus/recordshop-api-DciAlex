@@ -16,6 +16,7 @@ const { setCors } = require("./middleware/security");
 
 const mongoose = require('mongoose')
 const RecordsModel = require('./models/model-songs');
+const UsersModel = require('./models/model-user')
 /** INIT */
 const app = express();
 
@@ -30,7 +31,7 @@ app.use(logger('dev'));
 //     records: [],
 //     users: [],
 //     orders: []
-// }).write();
+// }).write();  s
 
 (async function(){
     await mongoose.connect('mongodb://localhost:27017/test', {
@@ -47,8 +48,15 @@ app.use(logger('dev'));
                     Year: ${records.year},
                     Price: ${records.price}`)
             })
-            console.log(allrecordss.length)
-        } catch (error) {
+        // const allUser = await UsersModel.find()
+        // allUser.forEach(users =>{
+        //     console.log(
+        //         `${users.username},
+        //         ${users.firstName}
+        //         `)
+        // })
+        }  
+         catch (error) {
             console.log(error)
         }
     
@@ -64,10 +72,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 /** ROUTES */
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/records', recordsRouter);
-app.use('/orders', ordersRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+// app.use('/records', recordsRouter);
+// app.use('/orders', ordersRouter);
 
 /** ERROR HANDLING */
 app.use(function (req, res, next) {
