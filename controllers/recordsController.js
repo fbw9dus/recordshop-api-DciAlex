@@ -23,7 +23,7 @@ exports.deleteRecord = async (req, res, next) => {
 };
 
 exports.updateRecord = async (req, res, next) => {
-  const { id } = req.params;
+  const { id } = req.params.id;
   data = req.body
   const record = await Record.findByIdAndUpdate(id,data,{new:true})
   // Schreib hier code um das record mit der id aus params in der records-Collection mit den Daten aus req.body zu aktualisieren
