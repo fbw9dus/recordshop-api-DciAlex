@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 
 exports.getUsers = (req, res, next) => {
-  const users = await User.find
+  const users    = await User.find()
   res.status(200).send(users);
 };
 
@@ -21,8 +21,8 @@ exports.deleteUser = (req, res, next) => {
 
 exports.updateUser = (req, res, next) => {
   const { id } = req.params;
-  const dt = req.body;
-  const user =await User.findByIdAndUpdate(id,dt,{new:true})
+  const dt     = req.body;
+  const user   = await User.findByIdAndUpdate(id,dt,{new:true})
   res.status(200).send(user);
 };
 
