@@ -1,35 +1,34 @@
 
-exports.getUsers = (req, res, next) => {
-  // Schreib hier code um alle Kunden aus der users-Collection zu holen
+const User = require('../models/User');
 
+
+exports.getUsers = (req, res, next) => {
+  const users = await User.find()
   res.status(200).send(users);
 };
 
 exports.getUser = (req, res, next) => {
-  const { id } = req.params;
-  // Schreib hier code um den Kunden mit der id aus params aus der users-Collection zu holen
-
+  const { id }  = req.params;
+  const user    = await User.findById(id)
   res.status(200).send(user);
 };
 
 exports.deleteUser = (req, res, next) => {
   const { id } = req.params;
-  // Schreib hier code um den Kunden mit der id aus params aus der users-Collection zu löschen
-
+  const user   = await User.findById(id)
   res.status(200).send(user);
 };
 
 exports.updateUser = (req, res, next) => {
   const { id } = req.params;
   const dt = req.body;
-  // Schreib hier code um den User mit der id aus params in der users-Collection mit den Daten aus req.body zu aktualisieren
-
+  const user =await User.findByIdAndUpdate(id,dt,{new:true})
   res.status(200).send(user);
 };
 
-exports.addUser = (req, res, next) => {
-  const user = req.body;
-  // Schreib hier code um die Daten des neuen Kunden aus req.body in der users-Collection zu speichern
-
+exports.addUser  = (req, res, next) => {
+  const userData = req.body;
+  const user     = new User(userData)
+  await user.save()
   res.status(200).send(user);
 };
