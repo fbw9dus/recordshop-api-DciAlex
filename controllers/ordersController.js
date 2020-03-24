@@ -1,29 +1,38 @@
-exports.getOrders = (req, res, next) => {
+
+const Orders      = require('../models/Order');
+
+exports.getOrders = async(req, res, next) => {
+  const orders    = await Orders.find();
 
   res.status(200).send(orders);
 };
 
-exports.getOrder = (req, res, next) => {
-  const { id } = req.params;
+exports.getOrder = async (req, res, next) => {
+  const { id }   = req.params;
+  const order    = await Orders.findById(id);
 
   res.status(200).send(order);
 };
 
-exports.deleteOrder = (req, res, next) => {
-  const { id } = req.params;
+exports.deleteOrder = async (req, res, next) => {
+  const { id }      = req.params;
+  const order       =await Orders.findByIdAndDelete(id);
 
   res.status(200).send(order);
 };
 
-exports.updateOrder = (req, res, next) => {
-  const { id } = req.params;
-  const dt = req.body;
+exports.updateOrder = async(req, res, next) => {
+  const { id }      = req.params;
+  const dt          = req.body;
+  const order       = await Orders.findByIdAndUpdate(id,dt,{new:true});
 
   res.status(200).send(order);
 };
 
-exports.addOrder = (req, res, next) => {
-  const order = req.body;
-
+exports.addOrder  = async(req, res, next) => {
+  const orderData = req.body;
+  const order     = new Orders(orderData);
+  await order.save();
+  
   res.status(200).send(order);
 };
