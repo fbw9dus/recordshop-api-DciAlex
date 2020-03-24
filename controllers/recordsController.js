@@ -1,7 +1,7 @@
 const Record = require ("../models/Record");
 
 exports.getRecords = async (req, res, next) => {
-  const records = await Record.find()
+  const records = await Record.find
   
   res.status(200).send(records);
 };
