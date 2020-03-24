@@ -31,7 +31,6 @@ mongoose.connection.on("open", function() {
 });
 
 
-
 /** REQUEST PARSERS */
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,6 +39,7 @@ app.use(setCors);
 
 /** STATIC FILES*/
 app.use(express.static(path.join(__dirname, "public")));
+const {check,validationResult} = require('express-validator')
 
 /** ROUTES */
 app.use("/", indexRouter);

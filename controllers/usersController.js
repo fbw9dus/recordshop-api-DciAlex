@@ -1,5 +1,6 @@
 
 const User = require('../models/User');
+const {validationResult} = require('express-validator')
 
 
 exports.getUsers = async (req, res, next) => {
@@ -31,6 +32,10 @@ exports.updateUser = async (req, res, next) => {
 };
 
 exports.addUser  = async (req, res, next) => {
+  const errors = validationResult(req)
+  if(!errors)
+  return res.status(422).json({errors: errors.array()})
+  
   const userData = req.body;
   const user     = new User(userData);
   await user.save();
