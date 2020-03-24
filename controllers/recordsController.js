@@ -8,28 +8,30 @@ exports.getRecords = async (req, res, next) => {
 
 exports.getRecord = async (req, res, next) => {
   const { id } = req.params;
-  const record = await Record.findById(id)
+  const record = await Record.findById(id);
+
   res.status(200).send(record);
 };
 
 exports.deleteRecord = async (req, res, next) => {
   const { id } = req.params;
-  const record = await Record.findByIdAndDelete(id)
+  const record = await Record.findByIdAndDelete(id);
 
   res.status(200).send(record);
 };
 
 exports.updateRecord = async (req, res, next) => {
   const { id } = req.params;
-  data = req.body
-  const record = await Record.findByIdAndUpdate(id,data,{new:true})
+  const data = req.body;
+  const record = await Record.findByIdAndUpdate(id,data,{new:true});
 
   res.status(200).send(record);
 };
 
 exports.addRecord = async (req, res, next) => {
   const records = req.body;
-  const record = new Record(records)
-  await record.save()
+  const record = new Record(records);
+  await record.save();
+  
   res.status(200).send(record);
 };
