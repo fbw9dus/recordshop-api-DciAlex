@@ -15,5 +15,3 @@ const OrderSchema = new Schema({
 });
 
 module.exports = mongoose.model("Order", OrderSchema);
-// Order.findById(resOrder.body._id).populate(
-//   "recor

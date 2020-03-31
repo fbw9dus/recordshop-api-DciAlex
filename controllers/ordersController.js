@@ -2,14 +2,16 @@
 const Orders      = require('../models/Order');
 
 exports.getOrders = async(req, res, next) => {
-  const orders    = await Orders.find();
+  const orders = await Orders.find().populate('record')
+  // const orders    = await Orders.find();
 
   res.status(200).send(orders);
 };
 
 exports.getOrder = async (req, res, next) => {
   const { id }   = req.params;
-  const order    = await Orders.findById(id);
+  // const order    = await Orders.findById(id);
+  const order = await Orders.findById(id).populate('record')
 
   res.status(200).send(order);
 };
