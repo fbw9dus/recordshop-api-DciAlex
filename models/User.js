@@ -3,21 +3,21 @@ const { Schema } = mongoose;
 
 const AdressSchema = new Schema(
   {
-    strName:{
+    street: {
       type: String,
-      required:true
-    },
-    strNummer:{
-      type: Number,
-      required:true
-    },
-    strZip:{
-      type:Number,
-      required:true
+      required: true
     },
     city:{
       type:String,
       required:true
+    }
+  },
+  {
+    toObject: {
+      virtuals: true
+    },
+    toJSON: {
+      virtuals: true
     }
   }
 )
@@ -40,7 +40,11 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
-    Adress:AdressSchema
+    buy: [{
+      ref: "Order",
+      type: mongoose.Schema.Types.ObjectId
+    }],
+    address:AdressSchema
   },
   {
     toObject: {
