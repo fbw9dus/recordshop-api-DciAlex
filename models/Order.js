@@ -7,9 +7,13 @@ const OrderSchema = new Schema({
     required: true
   },
   record: {
-    type: String,
+    ref: "Record",
+    type: mongoose.Schema.Types.ObjectId,
     required: true
-  }
+  },
+
 });
 
 module.exports = mongoose.model("Order", OrderSchema);
+// Order.findById(resOrder.body._id).populate(
+//   "recor
