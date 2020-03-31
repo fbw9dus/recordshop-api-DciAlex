@@ -16,7 +16,7 @@ exports.getOrder = async (req, res, next) => {
 
 exports.deleteOrder = async (req, res, next) => {
   const { id }      = req.params;
-  const order       =await Orders.findByIdAndDelete(id);
+  const order       = await Orders.findByIdAndDelete(id);
 
   res.status(200).send(order);
 };

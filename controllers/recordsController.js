@@ -22,7 +22,7 @@ exports.deleteRecord = async (req, res, next) => {
 
 exports.updateRecord = async (req, res, next) => {
   const { id } = req.params;
-  const data = req.body;
+  const data   = req.body;
   const record = await Record.findByIdAndUpdate(id,data,{new:true});
 
   res.status(200).send(record);
@@ -30,7 +30,7 @@ exports.updateRecord = async (req, res, next) => {
 
 exports.addRecord = async (req, res, next) => {
   const records = req.body;
-  const record = new Record(records);
+  const record  = new Record(records);
   await record.save();
   
   res.status(200).send(record);
