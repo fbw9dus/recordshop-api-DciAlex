@@ -1,47 +1,43 @@
-const {  validationResult } = require('express-validator');
-const Users = require('../models/User');
+const User = require('../models/User');
+const {validationResult} = require('express-validator')
 
 
 exports.getUsers = async (req, res, next) => {
-  // Schreib hier code um alle Kunden aus der users-Collection zu holen
-  var users = await Users.find()
+  const users    = await User.find();
 
   res.status(200).send(users);
 };
 
-exports.getUser = async (req, res, next) => {
-  const { id } = req.params;
-  // Schreib hier code um den Kunden mit der id aus params aus der users-Collection zu holen
-  var user = await Users.findById(id)
+exports.getUser  = async (req, res, next) => {
+  const { id }   = req.params;
+  const user     = await User.findById(id);
+
   res.status(200).send(user);
 };
 
 exports.deleteUser = async (req, res, next) => {
-  const { id } = req.params;
-  // Schreib hier code um den Kunden mit der id aus params aus der users-Collection zu löschen
-  var user = await Users.findByIdAndDelete(id)
+  const { id }     = req.params;
+  const user       = await User.findByIdAndDelete(id);
+
   res.status(200).send(user);
 };
 
 exports.updateUser = async (req, res, next) => {
-  const { id } = req.params;
-  const dt = req.body;
-  // Schreib hier code um den User mit der id aus params in der users-Collection mit den Daten aus req.body zu aktualisieren
-  
-  var user = await Users.findByIdAndUpdate(id, dt, {new: true})
+  const { id }     = req.params;
+  const dt         = req.body;
+  const user       = await User.findByIdAndUpdate(id,dt,{new:true});
+
   res.status(200).send(user);
 };
 
-
-exports.addUser =  async (req, res, next) => {
-
-  const errors = validationResult(req);
+exports.addUser  = async (req, res, next) => {
+  const errors   = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() })
+    return res.status(422).json({ errors: errors.array() });
   }
-  const user = req.body;
-  // Schreib hier code um die Daten des neuen Kunden aus req.body in der users-Collection zu speichern
-  var newUser = new Users(user)
-  await newUser.save()
-  res.status(200).send(newUser);
+  const userData = req.body;
+  const user     = new User(userData);
+  await user.save();
+
+  res.status(200).send(user);
 };
