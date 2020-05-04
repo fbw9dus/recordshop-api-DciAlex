@@ -30,6 +30,8 @@ mongoose.connection.on("open", function() {
   console.log("Database connection established...");
 });
 
+
+
 /** REQUEST PARSERS */
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,6 +40,16 @@ app.use(setCors);
 
 /** STATIC FILES*/
 app.use(express.static(path.join(__dirname, "public")));
+
+
+//validation 
+
+
+
+
+
+
+
 
 /** ROUTES */
 app.use("/", indexRouter);
@@ -59,6 +71,7 @@ app.use(function(err, req, res, next) {
     }
   });
 });
+
 
 /** EXPORT PATH */
 module.exports = app;

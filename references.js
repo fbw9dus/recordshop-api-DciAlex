@@ -1,3 +1,4 @@
+//beispiel für 3. aufgabe des task 07
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
@@ -51,8 +52,9 @@ const Owner = mongoose.model('Owner', OwnerSchema)
     })
 
     // Lesen
-    const owner = await Owner.findById(max.id).populate('car', '-__v -_id')
+    const owner = await Owner.findById(max.id).populate('car' , '-__v -_id')
+    const owner = await Owner.findById(max.id).populate('car')
     console.log(owner)
-
+    
 })()
 
